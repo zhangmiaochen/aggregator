@@ -49,7 +49,7 @@ jobs:
         
     - name: Check and remove invalid links
       run: |
-        cd aggregate
+        #cd aggregate
         python -u subscribe/check_links.py
 
     - name: Create/Update Gist
