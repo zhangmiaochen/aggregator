@@ -49,14 +49,12 @@ jobs:
         
     - name: Check and remove invalid links
       run: |
-        #cd aggregate
         python -u subscribe/check_links.py
 
     - name: Create/Update Gist
       env:
         GH_TOKEN: ${{ secrets.PRIVATE_TOKEN_AGGREGATOR }}
       run: |
-        cd aggregate
         gh gist edit ${{ secrets.GIST_ID }} --add "proxies.yaml"
         gh gist edit ${{ secrets.GIST_ID }} --add "subscribes.txt"
         gh gist edit ${{ secrets.GIST_ID }} --add "domains.txt"
