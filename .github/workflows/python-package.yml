@@ -47,9 +47,6 @@ jobs:
           sed 's/https:/\n&/2g' subscribes.txt  > temp.txt && mv temp.txt subscribes.txt
         fi
         
-    - name: Check and remove invalid links
-      run: |
-        python -u subscribe/check_links.py
 
     - name: Create/Update Gist
       env:
