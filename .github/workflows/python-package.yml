@@ -50,7 +50,7 @@ jobs:
 
     - name: Create/Update Gist
       env:
-        GH_TOKEN: ${{ secrets.PRIVATE_TOKEN_AGGREGATOR }}
+        GH_TOKEN: ${{ github.token }}
       run: |
         gh gist edit ${{ secrets.GIST_ID }} --add "proxies.yaml"
         gh gist edit ${{ secrets.GIST_ID }} --add "subscribes.txt"
