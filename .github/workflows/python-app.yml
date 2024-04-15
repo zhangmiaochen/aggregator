@@ -19,7 +19,10 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-
+    - name: Install tqdm
+      run: |
+        pip install tqdm
+        
     - name: Install dependencies
       run: |
         pip3 install pyYAML requests
@@ -35,7 +38,6 @@ jobs:
     - name: Collect Subscribe
       id: collect
       run: |
-        cd aggregate
         python -u subscribe/collect.py
         if [ -s old-subscribes.txt ]; then
           cat old-subscribes.txt subscribes.txt | sort | uniq > merged-subscribes.txt
@@ -45,12 +47,11 @@ jobs:
         
     - name: Check and remove invalid links
       run: |
-        cd aggregate
         python -u subscribe/check_links.py
 
     - name: Create/Update Gist
       env:
-        GH_TOKEN: ${{ secrets.PRIVATE_TOKEN_AGGREGATOR }}
+        GH_TOKEN: ${{ github.GH_TOKEN }}
       run: |
         cd aggregate
         gh gist edit ${{ secrets.GIST_ID }} --add "proxies.yaml"
